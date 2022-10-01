@@ -2,7 +2,11 @@ const Product = require('../models/Products');
 
 const getProductList = async (req, res) => {
   const products = await Product.find();
-  res.json(products);
+  res.json({
+    message: `${products.length} products found!`,
+    data: products,
+    error: false
+  });
 };
 
 const getProductByNameOrId = async (req, res) => {
@@ -18,7 +22,11 @@ const getProductByNameOrId = async (req, res) => {
     });
   }
 
-  res.json(product);
+  res.json({
+    message: 'Product found!',
+    data: product,
+    error: false
+  });
 };
 
 const createProduct = async (req, res) => {
@@ -39,7 +47,7 @@ const createProduct = async (req, res) => {
       data: newProduct,
     });
   } catch (error) {
-    res.json({
+    res.status(400).json({
       error: true,
       message: error,
     });
@@ -61,7 +69,7 @@ const deleteProduct = async (req, res) => {
     await product.delete();
     return res.status(204);
   } catch (error) {
-    res.json({
+    res.status(400).json({
       error: true,
       message: error,
     });
@@ -93,7 +101,7 @@ const updateProduct = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    return res.json({
+    return res.status(400).json({
       message: error,
       error: true,
     });
