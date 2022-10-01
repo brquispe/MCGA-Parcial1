@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const homeRoutes = require('./routes');
+const productsRoutes = require('./routes/products');
 
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use(homeRoutes);
+app.use(productsRoutes);
 
 mongoose.connect(DATABASE_URL).then(() => {
   console.log('DB Connected!');
