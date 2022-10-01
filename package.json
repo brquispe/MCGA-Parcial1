@@ -1,0 +1,16 @@
+{
+  "name": "mcga-parcial-1",
+  "version": "1.0.0",
+  "description": "Parcial 1 de MCGA",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Braian Quispe",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1"
+  }
+}
