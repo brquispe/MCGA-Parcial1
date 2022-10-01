@@ -1,12 +1,23 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const homeRoutes = require('./routes');
+
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
+const DATABASE_URL = process.env.DB_URL;
 
 const app = express();
 app.use(express.json());
 
-app.get('', (req, res) => res.send('<h1>Hello world</h1>'));
+app.use(homeRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Listening at http://localhost:${PORT}`);
+mongoose.connect(DATABASE_URL).then(() => {
+  console.log('DB Connected!');
+
+  app.listen(PORT, () => {
+    console.log(`Listening at http://localhost:${PORT}`);
+  })
+}).catch(err => {
+  console.log('There was an error on the DB connection');
+  console.log(err);
 })
