@@ -22,7 +22,33 @@ const getProductByNameOrId = async (req, res) => {
   res.json(product);
 }
 
+const createProduct = async (req, res) => {
+  const newProductData = {
+    id: req.body.id,
+    name: req.body.name,
+    stock: req.body.stock,
+    price: req.body.price,
+    description: req.body.description
+  };
+
+  try {
+    const newProduct = new Product(newProductData);
+    await newProduct.save();
+    res.status(201).json({
+      error: false,
+      message: 'Product created!',
+      data: newProduct
+    });
+  } catch (error) {
+    res.json({
+      error: true,
+      message: error
+    })
+  }
+}
+
 module.exports = {
   getProductList,
-  getProductByNameOrId
+  getProductByNameOrId,
+  createProduct
 };
